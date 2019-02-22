@@ -28,32 +28,23 @@ case class TodoApp() extends Component[NoEmit] {
   }
 
   def markAsDone(todo: Todo)(implicit get: Get): Unit = {
-    println("mark as done")
-    val xs = get(data).map {
-      case `todo` =>
-        println("marked as done")
-        todo.copy(done = true)
-      case x => x
-    }
-    data.set(xs)
+    data.modify(_.map {
+      case `todo` => todo.copy(done = true)
+      case x      => x
+    })
   }
 
   def markAsUndone(todo: Todo)(implicit get: Get): Unit = {
-    println("mark as undone")
-    val xs = get(data).map {
-      case `todo` =>
-        println("marked as undone")
-        todo.copy(done = false)
-      case x => x
-    }
-    data.set(xs)
+    data.modify(_.map {
+      case `todo` => todo.copy(done = false)
+      case x      => x
+    })
   }
 
   def deleteTodo(todo: Todo)(implicit get: Get): Unit =
-    data.set(get(data).filter(_ != todo))
+    data.modify(_.filter(_ != todo))
 
   def addTodo(text: String)(implicit get: Get): Unit = {
-    val newTodo = Todo(UUID.randomUUID().toString, text)
-    data.set(get(data) :+ newTodo)
+    data.modify(_ :+ Todo(UUID.randomUUID().toString, text))
   }
 }
