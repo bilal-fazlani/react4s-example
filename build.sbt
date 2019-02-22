@@ -22,13 +22,23 @@ lazy val root = (project in file("."))
       scalaTest % Test,
       "org.scala-js" %%% "scalajs-dom" % "0.9.6",
       "com.github.ahnfelt" %%% "react4s" % "0.9.24-SNAPSHOT"
-//      "org.querki" %%% "jquery-facade" % "1.2"
     ),
-
-//    jsDependencies +=
-//      "org.webjars" % "jquery" % "2.2.1" / "jquery.js" minified "jquery.min.js"
   )
   .enablePlugins(ScalaJSPlugin)
 
+
+lazy val `todo-api` = (project in file("./todo-api"))
+  .settings(
+    name := "todo-api",
+
+    libraryDependencies ++= Seq(
+      scalaTest % Test,
+      "com.typesafe.akka" %% "akka-actor" % "2.5.21",
+//      "com.typesafe.play" %% "play-json" % "2.6.10",
+      "com.typesafe.akka" %% "akka-http-spray-json" % "10.1.7",
+      "com.typesafe.akka" %% "akka-http"   % "10.1.7",
+      "com.typesafe.akka" %% "akka-stream" % "2.5.21"
+    )
+  )
 
 

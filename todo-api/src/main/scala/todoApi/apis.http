@@ -1,0 +1,37 @@
+GET http://localhost:9000/items
+
+###
+
+PUT http://localhost:9000/item
+Content-Type: application/json
+
+{
+  "id": "5d4c8634-a52a-431f-aed6-eaefeee63f63",
+  "text": "abcd",
+  "done": true
+}
+
+###
+
+POST http://localhost:9000/item
+Content-Type: application/json
+
+{
+  "text": "abcd",
+  "done": false
+}
+
+###
+
+DELETE http://localhost:9000/item
+Content-Type: application/json
+
+{
+  "id": "5d4c8634-a52a-431f-aed6-eaefeee63f63"
+}
+
+###
+
+GET http://localhost:9000/item/5dccd2b7-5ab4-40b7-b60d-6ed4fa94437f
+
+###
