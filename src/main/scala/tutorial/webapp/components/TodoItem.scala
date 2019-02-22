@@ -6,19 +6,21 @@ import tutorial.webapp.models.Todo
 
 case class TodoItem(todo: P[Todo]) extends Component[AppCommand] {
   override def render(get: Get): Node = {
-    println(s"render TodoItem ${get(todo)}")
     val item = get(todo)
-    val textSpan =
-      if (item.done) E.span(DoneClass, Text(item.text))
-      else E.span(Text(item.text))
-    val button =
-      if (item.done)
-        E.button(Text("↩"), A.onClick(_ => emit(MarkAsUndone(item))))
-      else E.button(Text("☑"), A.onClick(_ => emit(MarkAsDone(item))))
-    val delete = E.button(Text("✖"), A.onClick(_ => emit(DeleteTodo(item))))
-    E.li(E.span(button, Text(" "), delete, Text(" "), textSpan))
-  }
 
-  object DoneClass
-      extends CssClass(S.textDecoration("line-through"), S.color("darkgray"))
+    val delete = E.button(
+      A.id("delete-button"),
+      A.onClick(_ => emit(DeleteTodo(item))),
+      E.img(A.src("images/delete.png"))
+    )
+
+    E.li(
+      A.className(if (item.done) "done" else "active"),
+      A.onClick(_ =>
+        emit(if (item.done) MarkAsUndone(item) else MarkAsDone(item))),
+      A.id("item"),
+      E.span(Text(item.text)),
+      delete
+    )
+  }
 }

@@ -1,0 +1,144 @@
+#main {
+    width: 500px;
+    margin: 30px auto 10px;
+    font-family: sans-serif;
+}
+
+#header {
+    font-size: 35px;
+    margin-bottom: 7px;
+    font-style: italic;
+}
+
+#toolbar {
+    border: 2px solid;
+    display: flex;
+    height: 40px;
+}
+
+#input-box {
+    border: none;
+    font-size: 18px;
+    padding-left: 4px;
+    flex-grow: 2;
+}
+
+#input-box:focus{
+    outline: none;
+}
+
+#add-button {
+    color: white;
+    border: none;
+    width: 56px;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-left: 2px solid black;
+}
+
+#add-button:hover, #add-button:focus {
+    background-color: #39ff00;
+    outline: none;
+}
+
+#add-button > img {
+    height: 21px;
+    margin-top: 1px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+#items {
+    margin-top: 10px;
+    list-style: none;
+    padding: 0px;
+    display: flex;
+    flex-flow: column;
+}
+
+#empty{
+    display: none;
+}
+
+#item{
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+    border: 2px solid white;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+}
+
+#item:hover{
+    border: 2px solid #c4c4c4;
+}
+
+#item.active{
+
+}
+
+#item.active:hover{
+
+}
+
+#item.done{
+    background-color: #f3f3f3;
+    color: gray;
+    opacity: 0.8;
+    border: 2px solid #f3f3f3;
+    filter: blur(0.5px);
+}
+
+#item.done:hover{
+    border: 2px solid #c4c4c4;
+}
+
+#item.done span {
+    text-decoration: line-through;
+}
+
+#item > span {
+    flex-grow: 2;
+    margin: 3px;
+}
+
+#delete-button{
+    border: none;
+    border-left: 2px solid transparent;
+    background-color: transparent;
+    transition: all 0.5s;
+    opacity: 0;
+    cursor: pointer;
+    align-self: stretch;
+}
+
+#delete-button:hover, #delete-button:focus {
+    background-color: #ff756f;
+    outline: none;
+    border-left: 2px solid lightgray;
+}
+
+#item.active:hover > #delete-button{
+    opacity: 1;
+}
+
+#item.done:hover > #delete-button{
+    opacity: 0.6;
+}
+
+#delete-button > img{
+    height: 22px;
+    margin-top: 1px;
+}
+
+/*#delete-button> button:hover > img {*/
+    /*filter: invert(100%);*/
+/*}*/
+
+#footer {
+    background-color: yellow;
+    margin-top: 10px;
+    border: 2px solid;
+}
