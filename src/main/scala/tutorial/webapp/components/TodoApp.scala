@@ -23,7 +23,8 @@ case class TodoApp() extends Component[NoEmit] {
         case DeleteTodo(todo)   => deleteTodo(todo)
       },
       Component(Footer, get(data)).withHandler {
-        case ClearAll => data.set(List.empty)
+        case ClearAll       => data.set(List.empty)
+        case ClearCompleted => data.modify(_.filter(!_.done))
       }
     )
   }

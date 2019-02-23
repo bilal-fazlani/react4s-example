@@ -7,6 +7,8 @@ sealed trait AppCommand
 //APP LEVEL COMMANDS
 case object ClearAll extends AppCommand
 
+case object ClearCompleted extends AppCommand
+
 case class AddTodo(item: String) extends AppCommand
 
 //ITEM LEVEL COMMANDS
