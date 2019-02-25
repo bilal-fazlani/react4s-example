@@ -5,12 +5,15 @@ ThisBuild / version          := "0.1.0-SNAPSHOT"
 ThisBuild / organization     := "com.example"
 ThisBuild / organizationName := "example"
 
+val diodeVersion = "1.1.4"
+
 lazy val root = (project in file("."))
   .settings(
     name := "hello-scala-js",
 
     // This is an application with a main method
     scalaJSUseMainModuleInitializer := true,
+    emitSourceMaps := true,
 
     jsEnv := new org.scalajs.jsenv.jsdomnodejs.JSDOMNodeJSEnv(),
     
@@ -21,7 +24,8 @@ lazy val root = (project in file("."))
     libraryDependencies ++= Seq(
       scalaTest % Test,
       "org.scala-js" %%% "scalajs-dom" % "0.9.6",
-      "com.github.ahnfelt" %%% "react4s" % "0.9.24-SNAPSHOT"
+      "com.github.ahnfelt" %%% "react4s" % "0.9.24-SNAPSHOT",
+      "io.suzaku" %%% "diode" % diodeVersion
     ),
   )
   .enablePlugins(ScalaJSPlugin)
