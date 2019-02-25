@@ -17,6 +17,12 @@ case class TodoItem(todo: P[Todo]) extends Component[AppCommand] {
     E.li(
       A.className(if (item.done) "done" else "active"),
       A.tabIndex("0"),
+      A.onKeyUp(e =>
+        e.key match {
+          case "Enter" =>
+            emit(if (item.done) MarkAsUndone(item) else MarkAsDone(item))
+          case _ =>
+      }),
       A.onClick(_ =>
         emit(if (item.done) MarkAsUndone(item) else MarkAsDone(item))),
       A.id("item"),
