@@ -9,7 +9,7 @@ val diodeVersion = "1.1.4"
 
 lazy val root = (project in file("."))
   .settings(
-    name := "hello-scala-js",
+    name := "hello-react4s",
 
     // This is an application with a main method
     scalaJSUseMainModuleInitializer := true,
@@ -31,6 +31,8 @@ lazy val root = (project in file("."))
     Compile / npmDependencies ++= Seq(
       "react" -> "16.5.1",
       "react-dom" -> "16.5.1"),
+
+//    webpackResources :=  webpackResources.value +++ (baseDirectory.value / "src/main/resources/" ** "*.*"),
 
     workbenchDefaultRootObject := Some(("target/scala-2.12/classes/index.html", "target/scala-2.12/"))
   )

@@ -14,12 +14,11 @@ case class TodoItem(todo: P[Todo]) extends Component[AppAction] {
     val delete = E.div(
       A.id("delete-button"),
       A.onClick(_ => AppCircuit.dispatch(DeleteTodo(item))),
-      E.img(A.src("images/delete.png"))
+      E.img(A.src("../../classes/images/delete.png"))
     )
 
     E.li(
       A.className(if (item.done) "done" else "active"),
-      A.tabIndex("0"),
       A.onKeyUp(e =>
         e.key match {
           case "Enter" =>

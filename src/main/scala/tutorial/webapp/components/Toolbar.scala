@@ -26,7 +26,7 @@ case class Toolbar() extends Component[NoEmit] {
               A.value(get(text))),
       E.button(
         A.id("add-button"),
-        E.img(A.src("images/add.png"))
+        E.img(A.src("../../classes/images/add.png"))
       )
     )
   }
