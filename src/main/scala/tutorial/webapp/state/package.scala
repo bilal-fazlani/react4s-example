@@ -1,7 +1,5 @@
 package tutorial.webapp
 
-import java.util.UUID
-
 import diode._
 import tutorial.webapp.actions._
 import tutorial.webapp.models.Todo
@@ -19,7 +17,7 @@ package object state {
           case ClearCompleted => updated(value.filter(!_.done))
           //ITEM LEVEL
           case AddTodo(item: String) =>
-            updated(value :+ Todo(UUID.randomUUID().toString, item))
+            updated(value :+ Todo(item))
           case DeleteTodo(item) =>
             updated(value.filter(_.id != item.id))
           case MarkAsDone(item) =>
