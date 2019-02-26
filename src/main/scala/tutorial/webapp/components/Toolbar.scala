@@ -1,19 +1,21 @@
 package tutorial.webapp.components
 
 import com.github.ahnfelt.react4s._
-import tutorial.webapp.commands.{AddTodo, ClearAll, AppCommand}
+import tutorial.webapp.actions.AddTodo
+import tutorial.webapp.state.AppCircuit
 
-case class Toolbar() extends Component[AppCommand] {
+case class Toolbar() extends Component[NoEmit] {
 
   val text = State("")
 
   override def render(get: Get): Node = {
+    println(s"render: ${getClass.getSimpleName}")
     E.form(
       A.id("toolbar"),
       A.onSubmit(e => {
         e.preventDefault()
         if (!get(text).trim.isEmpty) {
-          emit(AddTodo(get(text)))
+          AppCircuit.dispatch(AddTodo(get(text)))
           text.set("")
         }
       }),

@@ -25,7 +25,8 @@ lazy val root = (project in file("."))
       scalaTest % Test,
       "org.scala-js" %%% "scalajs-dom" % "0.9.6",
       "com.github.ahnfelt" %%% "react4s" % "0.9.24-SNAPSHOT",
-      "io.suzaku" %%% "diode" % diodeVersion
+      "io.suzaku" %%% "diode" % diodeVersion,
+      "io.suzaku" %%% "diode-devtools" % diodeVersion,
     ),
   )
   .enablePlugins(ScalaJSPlugin)
@@ -38,7 +39,6 @@ lazy val `todo-api` = (project in file("./todo-api"))
     libraryDependencies ++= Seq(
       scalaTest % Test,
       "com.typesafe.akka" %% "akka-actor" % "2.5.21",
-//      "com.typesafe.play" %% "play-json" % "2.6.10",
       "com.typesafe.akka" %% "akka-http-spray-json" % "10.1.7",
       "com.typesafe.akka" %% "akka-http"   % "10.1.7",
       "com.typesafe.akka" %% "akka-stream" % "2.5.21"
