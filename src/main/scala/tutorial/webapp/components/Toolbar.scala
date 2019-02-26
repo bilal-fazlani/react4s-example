@@ -21,6 +21,7 @@ case class Toolbar() extends Component[NoEmit] {
       }),
       E.input(A.id("input-box"),
               A.autoComplete("off"),
+              A.placeholder("what needs to be done?"),
               A.onChangeText(text.set),
               A.value(get(text))),
       E.button(

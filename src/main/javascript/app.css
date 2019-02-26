@@ -72,13 +72,12 @@
 }
 
 #item{
-    min-height: 30px;
-    display: flex;
     align-items: center;
     border: 2px solid white;
     cursor: pointer;
     transition: all 0.3s;
     display: flex;
+    min-height: 38px;
 }
 
 #item:hover, #item:focus {
@@ -111,7 +110,7 @@
 
 #item > span {
     flex-grow: 2;
-    margin: 3px;
+    margin: 5px 3px 5px 3px;
 }
 
 #delete-button{
@@ -126,7 +125,7 @@
     align-items: center;
     width: 32px;
     justify-content: center;
-    height: 32px;
+    flex-shrink: 0;
 }
 
 #delete-button:hover, #delete-button:focus {
