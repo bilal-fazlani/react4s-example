@@ -25,11 +25,16 @@ lazy val root = (project in file("."))
       scalaTest % Test,
       "org.scala-js" %%% "scalajs-dom" % "0.9.6",
       "com.github.ahnfelt" %%% "react4s" % "0.9.24-SNAPSHOT",
-      "io.suzaku" %%% "diode" % diodeVersion,
-      "io.suzaku" %%% "diode-devtools" % diodeVersion,
+      "io.suzaku" %%% "diode" % diodeVersion
     ),
+
+    Compile / npmDependencies ++= Seq(
+      "react" -> "16.5.1",
+      "react-dom" -> "16.5.1"),
+
+    workbenchDefaultRootObject := Some(("target/scala-2.12/classes/index.html", "target/scala-2.12/"))
   )
-  .enablePlugins(ScalaJSPlugin)
+  .enablePlugins(ScalaJSPlugin, ScalaJSBundlerPlugin, WorkbenchPlugin)
 
 
 lazy val `todo-api` = (project in file("./todo-api"))
