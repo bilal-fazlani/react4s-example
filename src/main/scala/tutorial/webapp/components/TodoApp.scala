@@ -9,6 +9,7 @@ case class TodoApp() extends Component[NoEmit] {
     E.div(
       Component(Header),
       Component(Toolbar),
+      Component(FilterPanel),
       Component(TodoList),
       Component(Footer)
     )

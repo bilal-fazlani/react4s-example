@@ -2,17 +2,17 @@ package tutorial.webapp
 
 import diode._
 import tutorial.webapp.actions._
-import tutorial.webapp.models.Todo
+import tutorial.webapp.models.{All, Filter, Todo}
 
 package object state {
-  case class RootModel(todoItems: List[Todo])
+  case class RootModel(todoItems: List[Todo], filter: Filter)
 
   object AppCircuit extends Circuit[RootModel] {
-    override def initialModel: RootModel = RootModel(List.empty)
+    override def initialModel: RootModel = RootModel(List.empty, All)
 
     val todoItemsHandler: ActionHandler[RootModel, List[Todo]] =
       new ActionHandler(zoomTo(_.todoItems)) {
-        override protected def handle = {
+        override protected def handle: PartialFunction[Any, ActionResult[RootModel]] = {
           case ClearAll       => updated(List.empty)
           case ClearCompleted => updated(value.filter(!_.done))
           //ITEM LEVEL
@@ -33,6 +33,13 @@ package object state {
         }
       }
 
-    override protected def actionHandler = composeHandlers(todoItemsHandler)
+    val filterHandler: ActionHandler[RootModel, Filter] =
+      new ActionHandler(zoomTo(_.filter)) {
+        override protected def handle: PartialFunction[Any, ActionResult[RootModel]] = {
+          case ApplyFilter(filter) => updated(filter)
+        }
+    }
+
+    override protected def actionHandler = composeHandlers(todoItemsHandler, filterHandler)
   }
 }

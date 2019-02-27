@@ -14,17 +14,9 @@ case class Footer() extends Component[NoEmit] {
 
   override def render(get: Get): Node = {
     println(s"render: ${getClass.getSimpleName}")
-    val todos = get(items)
-    val all = todos.length
-    val completed = todos.count(_.done)
-    val active = todos.count(!_.done)
-    if (all > 0)
+    if (get(items).nonEmpty)
       E.div(
         A.id("footer"),
-        E.div(
-          A.id("summary"),
-          Text(s"All: $all, Completed: $completed, Active: $active")
-        ),
         E.div(
           A.id("footer-actions"),
           E.span(

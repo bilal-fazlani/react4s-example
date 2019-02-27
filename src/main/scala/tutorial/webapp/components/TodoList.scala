@@ -6,17 +6,21 @@ import tutorial.webapp.state.AppCircuit
 
 case class TodoList() extends Component[NoEmit] {
 
-  val items: State[List[Todo]] = State(AppCircuit.initialModel.todoItems)
+  val root = State(AppCircuit.initialModel)
 
-  AppCircuit.subscribe(AppCircuit.zoom(_.todoItems))(modelRO ⇒
-    items.set(modelRO()))
+  AppCircuit.subscribe(AppCircuit.zoom(identity))(modelRO ⇒
+    root.set(modelRO()))
 
   override def render(get: Get): Node = {
+
+    val filter = get(root).filter
+    val items = get(root).todoItems.filter(filter.predicate)
+
     println(s"render: ${getClass.getSimpleName}")
-    if (get(items).nonEmpty)
+    if (items.nonEmpty)
       E.ul(A.id("items"),
            Tags(
-             for (item <- get(items))
+             for (item <- items)
                yield
                  Component(TodoItem, item)
                    .withKey(item.id)))
