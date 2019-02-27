@@ -6,9 +6,15 @@ object Main extends HttpApp with Routes with App {
 
   val routes: Route =
     parameterizedDelay {
-      getAllItems ~
-        getOneItem ~
-        path("item") { createItem ~ editItem ~ deleteItem }
+      path("items") {
+        getAllItems ~ deleteItems ~ editItems
+      } ~
+        path("item" / Remaining) { id =>
+          getOneItem(id)
+        } ~
+        path("item") {
+          createItem ~ editItem ~ deleteItem
+        }
     }
 
   startServer("localhost", 9000)

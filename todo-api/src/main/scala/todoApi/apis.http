@@ -1,37 +1,67 @@
+### GET ALL ITEM
+
 GET http://localhost:9000/items
 
-###
+### DELETE MULTIPLE
+
+DELETE http://localhost:9000/items
+Content-Type: application/json
+
+{
+  "ids": ["dc6b1edb-ac44-493d-b124-734435b1d7b3", "a7824b99-2f39-4501-8038-dc2f2742725c"]
+}
+
+### EDIT MULTIPLE
+
+POST http://localhost:9000/items
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "id": "dc6b1edb-ac44-493d-b124-734435b1d7b3",
+      "text": "bilal",
+      "done": false
+    },
+    {
+      "id": "a7824b99-2f39-4501-8038-dc2f2742725c",
+      "text": "fazlani",
+      "done": false
+    }
+  ]
+}
+
+### CREATE ONE ITEM
 
 PUT http://localhost:9000/item
 Content-Type: application/json
 
 {
-  "id": "5d4c8634-a52a-431f-aed6-eaefeee63f63",
-  "text": "abcd",
-  "done": true
+  "text": "pqr"
 }
 
-###
+### EDIT ONE ITEM
 
 POST http://localhost:9000/item
 Content-Type: application/json
 
 {
-  "text": "abcd",
-  "done": false
+  "id": "dc6b1edb-ac44-493d-b124-734435b1d7b3",
+  "text": "xyz",
+  "done": true
 }
 
-###
+### DELETE ONE ITEM
 
 DELETE http://localhost:9000/item
 Content-Type: application/json
 
 {
-  "id": "5d4c8634-a52a-431f-aed6-eaefeee63f63"
+  "id": "21395768-f095-4e72-b888-bc5a8d268cf7"
 }
 
-###
+### GET ONE ITEM
 
-GET http://localhost:9000/item/5dccd2b7-5ab4-40b7-b60d-6ed4fa94437f
+GET http://localhost:9000/item/dc6b1edb-ac44-493d-b124-734435b1d7b3
 
 ###
