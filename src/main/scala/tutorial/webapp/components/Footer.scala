@@ -8,6 +8,7 @@ import tutorial.webapp.state.AppCircuit
 case class Footer() extends Component[NoEmit] {
 
   val items: State[List[Todo]] = State(AppCircuit.initialModel.todoItems)
+
   AppCircuit.subscribe(AppCircuit.zoom(_.todoItems)) { modelRO =>
     items.set(modelRO())
   }
@@ -19,18 +20,14 @@ case class Footer() extends Component[NoEmit] {
         A.id("footer"),
         E.div(
           A.id("footer-actions"),
-          E.span(
-            Text("Clear all"),
-            A.id("clear-button"),
-            A.onClick(_ => {
-              AppCircuit.dispatch(ClearAll)
-            })),
-          E.span(
-            A.id("clear-completed-button"),
-            Text("Clear completed"),
-            A.onClick(_ => {
-              AppCircuit.dispatch(ClearCompleted)
-            }))
+          E.span(Text("Clear all"), A.id("clear-button"), A.onClick(_ => {
+            AppCircuit.dispatch(ClearAll)
+          })),
+          E.span(A.id("clear-completed-button"),
+                 Text("Clear completed"),
+                 A.onClick(_ => {
+                   AppCircuit.dispatch(ClearCompleted)
+                 }))
         )
       )
     else E.div(S.display("none"))

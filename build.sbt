@@ -7,6 +7,9 @@ ThisBuild / organizationName := "example"
 
 val diodeVersion = "1.1.4"
 
+resolvers += Resolver.sonatypeRepo("snapshots")
+resolvers += Resolver.bintrayRepo("hmil", "maven")
+
 lazy val root = (project in file("."))
   .settings(
     name := "hello-react4s",
@@ -18,8 +21,6 @@ lazy val root = (project in file("."))
     jsEnv := new org.scalajs.jsenv.jsdomnodejs.JSDOMNodeJSEnv(),
     
     skip in packageJSDependencies := false,
-
-    resolvers += Resolver.sonatypeRepo("snapshots"),
 
     libraryDependencies ++= Seq(
       scalaTest % Test,
@@ -37,11 +38,11 @@ lazy val root = (project in file("."))
     workbenchDefaultRootObject := Some(("target/scala-2.12/classes/index.html", "target/scala-2.12/"))
   )
   .enablePlugins(ScalaJSPlugin, ScalaJSBundlerPlugin, WorkbenchPlugin)
+  .dependsOn(`todo-client`, `todo-api`.js)
 
-
-lazy val `todo-api` = (project in file("./todo-api"))
+lazy val `todo-server` = (project in file("./todo-server"))
   .settings(
-    name := "todo-api",
+    name := "todo-server",
 
     libraryDependencies ++= Seq(
       scalaTest % Test,
@@ -50,6 +51,25 @@ lazy val `todo-api` = (project in file("./todo-api"))
       "com.typesafe.akka" %% "akka-http"   % "10.1.7",
       "com.typesafe.akka" %% "akka-stream" % "2.5.21"
     )
+  ).dependsOn(`todo-api`.jvm)
+
+lazy val `todo-client` = (project in file("./todo-client"))
+  .settings(
+    name := "todo-client",
+
+    libraryDependencies ++= Seq(
+//      "org.scala-js" %%% "scalajs-dom" % "0.9.6",
+//      "io.scalajs.npm" %%% "request" % "0.4.2",
+      "fr.hmil" %%% "roshttp" % "2.2.3",
+      "com.lihaoyi" %%% "upickle" % "0.7.1"
+    )
+  ).dependsOn(`todo-api`.js)
+  .enablePlugins(ScalaJSPlugin)
+
+lazy val `todo-api` = (crossProject in file("./todo-api"))
+  .settings(
+    name := "todo-api"
   )
 
-
+lazy val `todo-apiJVM` = `todo-api`.jvm
+lazy val `todo-apiJS` = `todo-api`.js

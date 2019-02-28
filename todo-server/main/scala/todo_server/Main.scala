@@ -1,4 +1,4 @@
-package todoApi
+package todo_server
 
 import akka.http.scaladsl.server.{HttpApp, Route}
 

@@ -1,25 +1,16 @@
-package todoApi
+package todo_server
 
 import java.util.UUID
 
-import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import akka.http.scaladsl.model.StatusCodes
 import akka.http.scaladsl.server.{Directive0, Directives, Route}
-import spray.json.DefaultJsonProtocol
-import todoApi.Extensions.RichFiniteDuration
-import todoApi.dto._
+import todo_api.dto._
+import todo_api.model.TodoItem
+import todo_server.Extensions.RichFiniteDuration
+import JsonSupport._
 
 import scala.concurrent.duration.DurationInt
 import scala.language.implicitConversions
-
-case class TodoItem(id: String, text: String, done: Boolean)
-
-object TodoItem extends SprayJsonSupport with DefaultJsonProtocol {
-  implicit val format = jsonFormat3(TodoItem.apply)
-
-  implicit def toEditRequest(model: TodoItem): EditRequest =
-    EditRequest(model.id, model.text, model.done)
-}
 
 trait Routes extends Directives {
   var data: List[TodoItem] = List.empty
@@ -53,7 +44,7 @@ trait Routes extends Directives {
       else {
         data = data.map {
           case oldTodo if oldTodo.id == requestTodo.id =>
-            EditRequest.toModel(requestTodo)
+            TodoItem(requestTodo)
           case otherTodo => otherTodo
         }
         complete("OK")
@@ -70,7 +61,7 @@ trait Routes extends Directives {
         data = data.map {
           case model if req.items.map(_.id).contains(model.id) =>
             val current = req.items.find(_.id == model.id).get
-            EditRequest.toModel(current)
+            TodoItem(current)
           case otherTodo => otherTodo
         }
         complete("OK")

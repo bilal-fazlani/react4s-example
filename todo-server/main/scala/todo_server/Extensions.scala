@@ -1,4 +1,4 @@
-package todoApi
+package todo_server
 
 import java.util.{Timer, TimerTask}
 
