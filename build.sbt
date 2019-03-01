@@ -1,26 +1,28 @@
 import Dependencies._
+import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
 
-ThisBuild / scalaVersion     := "2.12.8"
-ThisBuild / version          := "0.1.0-SNAPSHOT"
-ThisBuild / organization     := "com.example"
+ThisBuild / scalaVersion := "2.12.8"
+ThisBuild / version := "0.1.0-SNAPSHOT"
+ThisBuild / organization := "com.example"
 ThisBuild / organizationName := "example"
+name := "scalajs-examples"
 
 val diodeVersion = "1.1.4"
 
-resolvers += Resolver.sonatypeRepo("snapshots")
-resolvers += Resolver.bintrayRepo("hmil", "maven")
-
-lazy val root = (project in file("."))
+lazy val `react4s-app` = (project in file("./react4s-app"))
   .settings(
-    name := "hello-react4s",
+    name := "react4s-app",
 
     // This is an application with a main method
     scalaJSUseMainModuleInitializer := true,
     emitSourceMaps := true,
 
     jsEnv := new org.scalajs.jsenv.jsdomnodejs.JSDOMNodeJSEnv(),
-    
+
     skip in packageJSDependencies := false,
+
+    resolvers += Resolver.bintrayRepo("hmil", "maven"),
+    resolvers += Resolver.sonatypeRepo("snapshots"),
 
     libraryDependencies ++= Seq(
       scalaTest % Test,
@@ -33,7 +35,7 @@ lazy val root = (project in file("."))
       "react" -> "16.5.1",
       "react-dom" -> "16.5.1"),
 
-//    webpackResources :=  webpackResources.value +++ (baseDirectory.value / "src/main/resources/" ** "*.*"),
+    //    webpackResources :=  webpackResources.value +++ (baseDirectory.value / "src/main/resources/" ** "*.*"),
 
     workbenchDefaultRootObject := Some(("target/scala-2.12/classes/index.html", "target/scala-2.12/"))
   )
@@ -48,7 +50,7 @@ lazy val `todo-server` = (project in file("./todo-server"))
       scalaTest % Test,
       "com.typesafe.akka" %% "akka-actor" % "2.5.21",
       "com.typesafe.akka" %% "akka-http-spray-json" % "10.1.7",
-      "com.typesafe.akka" %% "akka-http"   % "10.1.7",
+      "com.typesafe.akka" %% "akka-http" % "10.1.7",
       "com.typesafe.akka" %% "akka-stream" % "2.5.21"
     )
   ).dependsOn(`todo-api`.jvm)
@@ -58,16 +60,19 @@ lazy val `todo-client` = (project in file("./todo-client"))
     name := "todo-client",
 
     libraryDependencies ++= Seq(
-//      "org.scala-js" %%% "scalajs-dom" % "0.9.6",
-//      "io.scalajs.npm" %%% "request" % "0.4.2",
+      //      "org.scala-js" %%% "scalajs-dom" % "0.9.6",
+      //      "io.scalajs.npm" %%% "request" % "0.4.2",
       "fr.hmil" %%% "roshttp" % "2.2.3",
       "com.lihaoyi" %%% "upickle" % "0.7.1"
     )
   ).dependsOn(`todo-api`.js)
   .enablePlugins(ScalaJSPlugin)
 
-lazy val `todo-api` = (crossProject in file("./todo-api"))
-  .settings(
+lazy val `todo-api` =
+  crossProject(JSPlatform, JVMPlatform)
+    .crossType(CrossType.Pure)
+    .in(file("./todo-api"))
+    .settings(
     name := "todo-api"
   )
 
