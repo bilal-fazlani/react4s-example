@@ -19,7 +19,7 @@
     transition: all 400ms;
 }
 
-#toolbar:focus-within{
+#toolbar:focus-within {
     box-shadow: 3px 3px 11px 0px #656565;
 }
 
@@ -30,7 +30,7 @@
     flex-grow: 2;
 }
 
-:focus{
+:focus {
     outline: none;
 }
 
@@ -67,11 +67,11 @@
     margin-right: auto;
 }
 
-#empty{
+#empty {
     display: none;
 }
 
-#item{
+#item {
     align-items: center;
     border: 2px solid white;
     cursor: pointer;
@@ -80,11 +80,12 @@
     min-height: 38px;
 }
 
+
 #item:hover, #item:focus {
     border: 2px solid #c4c4c4;
 }
 
-#item.done{
+#item.done {
     background-color: #f3f3f3;
     color: gray;
     opacity: 0.8;
@@ -92,7 +93,14 @@
     filter: blur(0.5px);
 }
 
-#item.done:hover, #item.done:focus{
+#item.unsaved {
+    background-color: #edfdd6;
+    border: 2px solid transparent;
+    cursor: auto;
+    transition: background-color 400ms;
+}
+
+#item.done:hover, #item.done:focus {
     border: 2px solid #c4c4c4;
 }
 
@@ -105,7 +113,34 @@
     margin: 5px 3px 5px 3px;
 }
 
-#delete-button{
+#item .loader-container {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    width: 32px;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+#item .loader-container .loader {
+    border: 5px solid #7ce221;
+    border-top: 5px solid #047901;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#delete-button {
     border: none;
     border-left: 2px solid transparent;
     background-color: transparent;
@@ -127,15 +162,15 @@
     opacity: 1;
 }
 
-#item.active:hover > #delete-button, #item.active:focus > #delete-button{
+#item.active:hover > #delete-button, #item.active:focus > #delete-button {
     opacity: 1;
 }
 
-#item.done:hover > #delete-button, #item.done:focus > #delete-button{
+#item.done:hover > #delete-button, #item.done:focus > #delete-button {
     opacity: 0.6;
 }
 
-#delete-button > img{
+#delete-button > img {
     height: 22px;
 }
 
@@ -168,14 +203,14 @@
     box-shadow: 3px 3px 11px 0px darkgrey;
 }
 
-#summary{
+#summary {
     text-align: center;
     font-size: 13px;
-    margin-top :10px;
+    margin-top: 10px;
     display: flex;
 }
 
-#summary > span{
+#summary > span {
     flex-grow: 1;
     text-align: center;
     flex-shrink: 0;
@@ -184,7 +219,7 @@
     padding: 5px;
 }
 
-#summary > span:nth-child(2){
+#summary > span:nth-child(2) {
     margin: 0px 3px;
 }
 

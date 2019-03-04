@@ -1,15 +1,14 @@
 package tutorial.webapp.components
 
 import com.github.ahnfelt.react4s._
-import tutorial.webapp.actions.ApplyFilter
-import tutorial.webapp.models.{All, Completed, NotCompleted}
-import tutorial.webapp.state.AppCircuit
+import tutorial.webapp.Actions.ApplyFilter
+import tutorial.webapp.state.{All, AppCircuit, Completed, NotCompleted}
 
-case class FilterPanel() extends Component[NoEmit]{
+case class FilterPanel() extends Component[NoEmit] {
 
   val rootState = State(AppCircuit.initialModel)
 
-  AppCircuit.subscribe(AppCircuit.zoom(identity)){modelRO =>
+  AppCircuit.subscribe(AppCircuit.zoom(identity)) { modelRO =>
     rootState.set(modelRO())
   }
 
@@ -24,18 +23,19 @@ case class FilterPanel() extends Component[NoEmit]{
       A.id("summary"),
       E.span(
         Text(s"All: $all"),
-        A.className(if(filter == All) "active-filter" else "disabled"),
-        A.onClick(_=> AppCircuit.dispatch(ApplyFilter(All)))
+        A.className(if (filter == All) "active-filter" else "disabled"),
+        A.onClick(_ => AppCircuit.dispatch(ApplyFilter(All)))
       ),
       E.span(
         Text(s"Completed: $completed"),
-        A.className(if(filter == Completed) "active-filter" else "disabled"),
-        A.onClick(_=> AppCircuit.dispatch(ApplyFilter(Completed)))
+        A.className(if (filter == Completed) "active-filter" else "disabled"),
+        A.onClick(_ => AppCircuit.dispatch(ApplyFilter(Completed)))
       ),
       E.span(
         Text(s"Not Completed: $active"),
-        A.className(if(filter == NotCompleted) "active-filter" else "disabled"),
-        A.onClick(_=> AppCircuit.dispatch(ApplyFilter(NotCompleted)))
+        A.className(
+          if (filter == NotCompleted) "active-filter" else "disabled"),
+        A.onClick(_ => AppCircuit.dispatch(ApplyFilter(NotCompleted)))
       )
     )
   }

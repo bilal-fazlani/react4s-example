@@ -1,7 +1,7 @@
-package tutorial.webapp.models
+package tutorial.webapp.state
 
 sealed abstract class Filter {
-  def predicate:Todo => Boolean
+  def predicate: Todo => Boolean
 }
 
 case object All extends Filter {

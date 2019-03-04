@@ -94,5 +94,5 @@ trait Routes extends Directives {
 
   def parameterizedDelay: Directive0 =
     parameter("delay".as[Int].?).flatMap(seconds =>
-      onSuccess(seconds.getOrElse(0).seconds.await))
+      onSuccess(seconds.getOrElse(2).seconds.await))
 }

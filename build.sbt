@@ -1,5 +1,5 @@
 import Dependencies._
-import sbtcrossproject.CrossPlugin.autoImport.{crossProject, CrossType}
+import sbtcrossproject.CrossPlugin.autoImport.{CrossType, crossProject}
 
 ThisBuild / scalaVersion := "2.12.8"
 ThisBuild / version := "0.1.0-SNAPSHOT"
@@ -33,13 +33,18 @@ lazy val `react4s-app` = (project in file("./react4s-app"))
 
     Compile / npmDependencies ++= Seq(
       "react" -> "16.5.1",
-      "react-dom" -> "16.5.1"),
+      "react-dom" -> "16.5.1",
+    ),
 
-    //    webpackResources :=  webpackResources.value +++ (baseDirectory.value / "src/main/resources/" ** "*.*"),
-
-    workbenchDefaultRootObject := Some(("target/scala-2.12/classes/index.html", "target/scala-2.12/"))
+    scalacOptions += "-P:scalajs:sjsDefinedByDefault",
+    webpackDevServerExtraArgs in fastOptJS := Seq("--inline", "--hot"),
+    webpackResources := webpackResources.value +++ PathFinder(Seq(baseDirectory.value / "index.html")) ** "*.*",
+    webpackDevServerExtraArgs in fastOptJS ++= Seq(
+      "--content-base",
+      baseDirectory.value.getAbsolutePath
+    )
   )
-  .enablePlugins(ScalaJSPlugin, ScalaJSBundlerPlugin, WorkbenchPlugin)
+  .enablePlugins(ScalaJSPlugin, ScalaJSBundlerPlugin)
   .dependsOn(`todo-client`, `todo-api`.js)
 
 lazy val `todo-server` = (project in file("./todo-server"))
@@ -51,7 +56,8 @@ lazy val `todo-server` = (project in file("./todo-server"))
       "com.typesafe.akka" %% "akka-actor" % "2.5.21",
       "com.typesafe.akka" %% "akka-http-spray-json" % "10.1.7",
       "com.typesafe.akka" %% "akka-http" % "10.1.7",
-      "com.typesafe.akka" %% "akka-stream" % "2.5.21"
+      "com.typesafe.akka" %% "akka-stream" % "2.5.21",
+      "ch.megard" %% "akka-http-cors" % "0.3.4"
     )
   ).dependsOn(`todo-api`.jvm)
 
@@ -60,8 +66,6 @@ lazy val `todo-client` = (project in file("./todo-client"))
     name := "todo-client",
 
     libraryDependencies ++= Seq(
-      //      "org.scala-js" %%% "scalajs-dom" % "0.9.6",
-      //      "io.scalajs.npm" %%% "request" % "0.4.2",
       "fr.hmil" %%% "roshttp" % "2.2.3",
       "com.lihaoyi" %%% "upickle" % "0.7.1"
     )
@@ -73,8 +77,8 @@ lazy val `todo-api` =
     .crossType(CrossType.Pure)
     .in(file("./todo-api"))
     .settings(
-    name := "todo-api"
-  )
+      name := "todo-api"
+    )
 
 lazy val `todo-apiJVM` = `todo-api`.jvm
 lazy val `todo-apiJS` = `todo-api`.js

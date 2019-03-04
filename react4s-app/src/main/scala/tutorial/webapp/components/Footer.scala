@@ -1,9 +1,8 @@
 package tutorial.webapp.components
 
 import com.github.ahnfelt.react4s.{Text, _}
-import tutorial.webapp.actions.{ClearAll, ClearCompleted}
-import tutorial.webapp.models.Todo
-import tutorial.webapp.state.AppCircuit
+import tutorial.webapp.Actions.{ClearAll, ClearCompleted}
+import tutorial.webapp.state.{AppCircuit, Todo}
 
 case class Footer() extends Component[NoEmit] {
 

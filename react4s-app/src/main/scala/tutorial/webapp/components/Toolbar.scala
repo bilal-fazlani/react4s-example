@@ -1,7 +1,7 @@
 package tutorial.webapp.components
 
 import com.github.ahnfelt.react4s._
-import tutorial.webapp.actions.AddTodo
+import tutorial.webapp.Actions.AddTodo
 import tutorial.webapp.state.AppCircuit
 
 case class Toolbar() extends Component[NoEmit] {
@@ -26,7 +26,7 @@ case class Toolbar() extends Component[NoEmit] {
               A.value(get(text))),
       E.button(
         A.id("add-button"),
-        E.img(A.src("../../classes/images/add.png"))
+        E.img(A.src("images/add.png"))
       )
     )
   }
