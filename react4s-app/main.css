@@ -75,7 +75,7 @@
     align-items: center;
     border: 2px solid white;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.4s;
     display: flex;
     min-height: 38px;
 }
@@ -97,8 +97,14 @@
     background-color: #edfdd6;
     border: 2px solid transparent;
     cursor: auto;
-    transition: background-color 400ms;
 }
+
+#item.failed {
+    background-color: #fdbfbf;
+    border: 2px solid transparent;
+    cursor: auto;
+}
+
 
 #item.done:hover, #item.done:focus {
     border: 2px solid #c4c4c4;
@@ -122,6 +128,15 @@
     flex-shrink: 0;
 }
 
+#item .failed-icon-container {
+    align-self: stretch;
+    display: flex;
+    align-items: center;
+    width: 32px;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
 #item .loader-container .loader {
     border: 5px solid #7ce221;
     border-top: 5px solid #047901;
@@ -129,6 +144,10 @@
     height: 12px;
     border-radius: 50%;
     animation: spin 2s linear infinite;
+}
+
+#failed-icon{
+    height: 22px;
 }
 
 @keyframes spin {

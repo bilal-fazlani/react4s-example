@@ -25,6 +25,13 @@ object AppCircuit extends Circuit[RootModel] {
               case x                      => x
             }
           )
+        case TodoAdditionFailed(id) =>
+          updated(
+            value.map {
+              case x if id == x.id => FailedTodo(x.text, id)
+              case x               => x
+            }
+          )
 
         case DeleteTodo(item) =>
           updated(value.filter(_.id != item.id))

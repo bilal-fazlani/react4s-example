@@ -1,7 +1,7 @@
 package tutorial.webapp.components.todo_item
 
 import com.github.ahnfelt.react4s._
-import tutorial.webapp.state.{SavedTodo, Todo, UnsavedTodo}
+import tutorial.webapp.state.{FailedTodo, SavedTodo, Todo, UnsavedTodo}
 
 case class TodoItemRow(todo: P[Todo]) extends Component[NoEmit] {
   override def render(get: Get): Node = {
@@ -12,8 +12,8 @@ case class TodoItemRow(todo: P[Todo]) extends Component[NoEmit] {
 
     item match {
       case unsaved: UnsavedTodo => Component(UnsavedTodoItemRow, unsaved)
-      case saved: SavedTodo =>
-        Component(SavedTodoItemRow, saved)
+      case saved: SavedTodo     => Component(SavedTodoItemRow, saved)
+      case failed: FailedTodo   => Component(FailedTodoItemRow, failed)
     }
 
   }

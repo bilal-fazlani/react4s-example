@@ -13,3 +13,7 @@ case class UnsavedTodo(text: String, done: Boolean) extends Todo {
 }
 
 case class SavedTodo(text: String, done: Boolean, id: String) extends Todo
+
+case class FailedTodo(text: String, id: String) extends Todo {
+  val done = false
+}

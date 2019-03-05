@@ -12,6 +12,7 @@ object Actions {
 
   case class AddTodo(item: String) extends Action
   case class TodoAdded(todoItem: TodoItem, unsavedId: String) extends Action
+  case class TodoAdditionFailed(unsavedId: String) extends Action
 
   //FILTER COMMANDS
   case class ApplyFilter(filter: Filter) extends Action
